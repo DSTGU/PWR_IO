@@ -2,6 +2,11 @@ package System.Serwisy;
 
 import System.Model.*;
 
+import javax.swing.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -51,11 +56,44 @@ public class LoginService {
 		return false;
 	}
 
-	public void zalogujUzytkownika() {
-		// TODO - implement LoginService.ZalogujUzytkownika
-		throw new UnsupportedOperationException();
+	public Uzytkownik zalogujUzytkownika(String email) throws Exception {
+
+			BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\Users.txt"));
+			String imie="";
+			String nazwisko="";
+			String haslo="";
+			while(reader.ready())
+			{
+				if (Objects.equals(reader.readLine(), email)) {
+					haslo=reader.readLine();
+					imie=reader.readLine();
+					nazwisko=reader.readLine();
+				}
+			}
+			if(!Objects.equals(imie, ""))
+				return new Uzytkownik(imie,nazwisko,email,haslo,0);
+			else {
+				throw new Exception("Cos poszlo nie tak");
+			}
 	}
 
+	public boolean isDataCorrect(String email, String password) throws IOException {
+
+		//System.out.println(System.getProperty("user.dir")+"\\Users.txt");
+		BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\Users.txt"));
+
+		while (reader.ready()) {
+			if (Objects.equals(reader.readLine(), email)) {
+				if (Objects.equals(reader.readLine(), password)) {
+					reader.close();
+					return true;
+				}
+			}
+
+		}
+		reader.close();
+		return false;
+	}
 	public LoginService() {
 
 	}

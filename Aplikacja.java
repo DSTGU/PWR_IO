@@ -116,58 +116,31 @@ public class Aplikacja {
 		JButton login = new JButton("Zaloguj");
 		loginPanel.add(login);
 		loginPanel.add(back);
-
 		login.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if (isDataCorrect(emailTextField.getText(), passwordTextField.getText())) {
-						setZalogowanyUzytkownik(emailTextField.getText());
-						//TODO no tera ekran juz po zalogowaniu ale to nie moja bajka jest
+					if (loginService.isDataCorrect(emailTextField.getText(), passwordTextField.getText())) {
+
+							zalogowanyUzytkownik = loginService.zalogujUzytkownika(emailTextField.getText());
+
+
+
 					}
 				} catch (Exception ex) {
-					JOptionPane.showMessageDialog(login_screen, "Something is no yes");
+					JOptionPane.showMessageDialog(login_screen,ex.getMessage());
+
 				}
 			}
+
 		});
 		login_screen.getContentPane().add(BorderLayout.CENTER, loginPanel);
 		login_screen.setVisible(true);
 	}
 
-	boolean isDataCorrect(String email, String password) throws IOException {
 
-		//System.out.println(System.getProperty("user.dir")+"\\Users.txt");
-		BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\Users.txt"));
 
-		while (reader.ready()) {
-			if (Objects.equals(reader.readLine(), email)) {
-				if (Objects.equals(reader.readLine(), password)) {
-					reader.close();
-					return true;
-				}
-			}
 
-		}
-		reader.close();
-		JOptionPane.showMessageDialog(login_screen, "Niepoprawny email lub haslo");
-		return false;
-	}
-
-	void setZalogowanyUzytkownik(String email) throws IOException {
-		BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\Users.txt"));
-		String imie;
-		String nazwisko;
-		String haslo;
-		while(reader.ready())
-		{
-			if (Objects.equals(reader.readLine(), email)) {
-				haslo=reader.readLine();
-				imie=reader.readLine();
-				nazwisko=reader.readLine();
-				zalogowanyUzytkownik=new Uzytkownik(imie,nazwisko,email,haslo,0);
-			}
-		}
-	}
 
 
 
