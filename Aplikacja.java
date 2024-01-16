@@ -7,6 +7,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
+import java.util.Objects;
+import java.util.stream.StreamSupport;
 
 public class Aplikacja {
 
@@ -16,8 +19,10 @@ public class Aplikacja {
 	public SkargaService skargaService;
 	public DziennikDzialanService dziennikDzialanService;
 	public LoginService loginService;
+	private JFrame frame;
+	private JFrame login_screen;
 
-	Aplikacja(){
+	Aplikacja() {
 		uzytkownikService = new UzytkownikService();
 		wydarzenieService = new WydarzenieService();
 		skargaService = new SkargaService();
@@ -25,9 +30,9 @@ public class Aplikacja {
 		loginService = new LoginService();
 		zalogowanyUzytkownik = null;
 
-		JFrame frame = new JFrame("Wendkarz");
+		frame = new JFrame("Wendkarz");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(410,300);
+		frame.setSize(410, 300);
 
 		JPanel panel = new JPanel();
 
@@ -53,21 +58,115 @@ public class Aplikacja {
 
 		JButton button = new JButton("Utworz konto");
 		panel.add(button);
-
+		JButton login = new JButton("Zaloguj");
+		panel.add(login);
+		login.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				set_login_screen();
+			}
+		});
 		button.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Uzytkownik uzytkownik = loginService.zarejestrujUzytkownika(imieTextfield.getText(), nazwiskoTextfield.getText(), emailTextfield.getText(), hasloTextfield.getText());
 				if (uzytkownik != null) {
-					zalogowanyUzytkownik = uzytkownik;
-					System.out.println("Zarejestrowano uzytkownika");
+					//zalogowanyUzytkownik = uzytkownik;
+					try {
+						BufferedWriter writer = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "\\Users.txt", true));
+						writer.append(uzytkownik.getEmail());
+						writer.newLine();
+						writer.append(uzytkownik.getHaslo());//hihi a bit of mischief
+						writer.newLine();
+						writer.append(uzytkownik.getImie());
+						writer.newLine();
+						writer.append(uzytkownik.getNazwisko());
+						writer.newLine();
+						writer.close();
+					} catch (IOException ex) {
+						JOptionPane.showMessageDialog(frame, "smh nie masz pliku Users.txt ;-;");
+					}
+					JOptionPane.showMessageDialog(frame, "Zarejestrowano uzytkownika");
 				}
 			}
 		});
 
 		frame.getContentPane().add(BorderLayout.CENTER, panel);
 		frame.setVisible(true);
+	}
+
+	void set_login_screen() {
+		frame.setVisible(false);
+		//frame.dispose();
+		login_screen = new JFrame("Login");
+		login_screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		login_screen.setSize(410, 300);
+		//login_screen.setVisible(true);
+		JPanel loginPanel = new JPanel();
+		JLabel emailLabel = new JLabel("Email");
+		JTextField emailTextField = new JTextField(32);
+		loginPanel.add(emailLabel);
+		loginPanel.add(emailTextField);
+		JLabel passwordLabel = new JLabel("Haslo");
+		JTextField passwordTextField = new JTextField(32);
+		loginPanel.add(passwordLabel);
+		loginPanel.add(passwordTextField);
+		JButton back = new JButton("Powrot");
+		JButton login = new JButton("Zaloguj");
+		loginPanel.add(login);
+		loginPanel.add(back);
+
+		login.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if (isDataCorrect(emailTextField.getText(), passwordTextField.getText())) {
+						setZalogowanyUzytkownik(emailTextField.getText());
+						//TODO no tera ekran juz po zalogowaniu ale to nie moja bajka jest
+					}
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(login_screen, "Something is no yes");
+				}
+			}
+		});
+		login_screen.getContentPane().add(BorderLayout.CENTER, loginPanel);
+		login_screen.setVisible(true);
+	}
+
+	boolean isDataCorrect(String email, String password) throws IOException {
+
+		//System.out.println(System.getProperty("user.dir")+"\\Users.txt");
+		BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\Users.txt"));
+
+		while (reader.ready()) {
+			if (Objects.equals(reader.readLine(), email)) {
+				if (Objects.equals(reader.readLine(), password)) {
+					reader.close();
+					return true;
+				}
+			}
+
+		}
+		reader.close();
+		JOptionPane.showMessageDialog(login_screen, "Niepoprawny email lub haslo");
+		return false;
+	}
+
+	void setZalogowanyUzytkownik(String email) throws IOException {
+		BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.dir") + "\\Users.txt"));
+		String imie;
+		String nazwisko;
+		String haslo;
+		while(reader.ready())
+		{
+			if (Objects.equals(reader.readLine(), email)) {
+				haslo=reader.readLine();
+				imie=reader.readLine();
+				nazwisko=reader.readLine();
+				zalogowanyUzytkownik=new Uzytkownik(imie,nazwisko,email,haslo,0);
+			}
+		}
 	}
 
 

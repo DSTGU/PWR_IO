@@ -22,7 +22,22 @@ public class Uzytkownik {
 	public void setNazwa_konta(String nazwa_konta) {
 		this.nazwa_konta = nazwa_konta;
 	}
-
+	public String getImie()
+	{
+		return imie;
+	}
+	public  String getNazwisko()
+	{
+		return nazwisko;
+	}
+	public String getEmail()
+	{
+		return email;
+	}
+	public String getHaslo()//YEAH ALE JEST BEZPIECZNIEEEEE
+	{
+		return haslo;
+	}
 	/**
 	 * 
 	 * @param imie
