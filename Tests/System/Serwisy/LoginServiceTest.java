@@ -152,6 +152,14 @@ class LoginServiceTest {
         );
         assertTrue(exception.getMessage().contains("(The system cannot find the file specified)"));
     }
-
+    @Test
+    void RejestracjaILogowanieZarejestrowanegoUzytkownika() throws Exception {
+        testLoginService.zarejestrujUzytkownika("Imie","Nazwisko","Email", "PoprawneHaslo1!!");
+        Uzytkownik testUser=testLoginService.zalogujUzytkownika("Email","PoprawneHaslo1!!");
+        assertEquals("Imie",testUser.getImie());
+        assertEquals("Nazwisko",testUser.getNazwisko());
+        assertEquals("Email", testUser.getEmail());
+        assertEquals("PoprawneHaslo1!!",testUser.getHaslo());
+    }
 
 }
