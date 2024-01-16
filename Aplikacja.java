@@ -70,23 +70,14 @@ public class Aplikacja {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Uzytkownik uzytkownik = loginService.zarejestrujUzytkownika(imieTextfield.getText(), nazwiskoTextfield.getText(), emailTextfield.getText(), hasloTextfield.getText());
+				Uzytkownik uzytkownik = null;
+				try {
+					uzytkownik = loginService.zarejestrujUzytkownika(imieTextfield.getText(), nazwiskoTextfield.getText(), emailTextfield.getText(), hasloTextfield.getText());
+				} catch (IOException ex) {
+					JOptionPane.showMessageDialog(frame, "Something is no yes");
+					throw new RuntimeException(ex);
+				}
 				if (uzytkownik != null) {
-					//zalogowanyUzytkownik = uzytkownik;
-					try {
-						BufferedWriter writer = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "\\Users.txt", true));
-						writer.append(uzytkownik.getEmail());
-						writer.newLine();
-						writer.append(uzytkownik.getHaslo());//hihi a bit of mischief
-						writer.newLine();
-						writer.append(uzytkownik.getImie());
-						writer.newLine();
-						writer.append(uzytkownik.getNazwisko());
-						writer.newLine();
-						writer.close();
-					} catch (IOException ex) {
-						JOptionPane.showMessageDialog(frame, "smh nie masz pliku Users.txt ;-;");
-					}
 					JOptionPane.showMessageDialog(frame, "Zarejestrowano uzytkownika");
 				}
 			}
@@ -120,13 +111,7 @@ public class Aplikacja {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if (loginService.isDataCorrect(emailTextField.getText(), passwordTextField.getText())) {
-
-							zalogowanyUzytkownik = loginService.zalogujUzytkownika(emailTextField.getText());
-
-
-
-					}
+					zalogowanyUzytkownik = loginService.zalogujUzytkownika(emailTextField.getText(),passwordTextField.getText());
 				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(login_screen,ex.getMessage());
 
