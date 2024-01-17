@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
@@ -138,20 +139,19 @@ class LoginServiceTest {
     @Test
     void PodczasLogowaniaPlikNieIstnieje()throws Exception{
         testLoginService.setTestPath("thisPathDoesNotExist");
-        Exception exception=assertThrows(Exception.class,
+        assertThrowsExactly(FileNotFoundException.class,
                 () -> testLoginService.zalogujUzytkownika("Email", "PoprawneHaslo1!!"),
                 "Expected zalogujUzytkownitka() to throw, but it didn't"
         );
-        assertTrue(exception.getMessage().contains("(The system cannot find the file specified)"));
     }
+
     @Test
     void PodczasRejestracjiPlikNieIsntieje(){
         testLoginService.setTestPath("thisPathDoesNotExist");
-        Exception exception=assertThrows(Exception.class,
+        assertThrowsExactly(FileNotFoundException.class ,
                 () -> testLoginService.zarejestrujUzytkownika("Imie","Nazwisko","Email", "NiepoprawneHaslo1!!"),
                 "Expected zalogujUzytkownitka() to throw, but it didn't"
         );
-        assertTrue(exception.getMessage().contains("(The system cannot find the file specified)"));
     }
     @Test
     void RejestracjaILogowanieZarejestrowanegoUzytkownika() throws Exception {

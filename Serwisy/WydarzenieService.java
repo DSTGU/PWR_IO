@@ -34,9 +34,11 @@ public class WydarzenieService {
 		if(server.getEventCount() <= eventId) return false;
 		List<Uzytkownik> organizators= new ArrayList<>();
 		organizators.add(organizator);
+
 		var newWydarzenie = new Wydarzenie(nazwa, data, wpisowe, organizators);
 		server.editEvent(eventId, newWydarzenie);
-		if(server.getEvents().get(eventId).getNazwa().equals(nazwa)) return false;
+
+		if(!server.getEvents().get(eventId).getNazwa().equals(nazwa)) return false;
 		else return true;
 	}
 

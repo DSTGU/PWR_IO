@@ -33,6 +33,12 @@ public class WydarzenieServiceTest {
     void CzyWyswietlaNieistniejaceWydarzenie() throws IOException {
         assertFalse(testWydarzenieServie.wyswietlenie_wydarzenia(2137));
     }
+
+    @Test
+    void CzyWydarzenieSieEdytuje() throws IOException {
+        assertTrue(testWydarzenieServie.edycja_wydarzenia(1,"Sledzenie sledzi", today, testUser, 420));
+    }
+
     @Test
     void CzyUsuwaIstniejaceWydarzenie() throws IOException {
         assertTrue(testWydarzenieServie.usuniecie_wydarzenia(1));
@@ -41,9 +47,6 @@ public class WydarzenieServiceTest {
     void CzyUsuwaNieistniejaceWydarzenie() throws IOException {
         assertFalse(testWydarzenieServie.usuniecie_wydarzenia(2137));
     }
-    @Test
-    void CzyWydarzenieSieEdytuje() throws IOException {
-        assertTrue(testWydarzenieServie.edycja_wydarzenia(1,"Sledzenie sledzi", today, testUser, 420));
-    }
+
 
 }
