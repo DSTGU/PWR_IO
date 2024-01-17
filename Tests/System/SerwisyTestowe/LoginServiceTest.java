@@ -1,6 +1,7 @@
-package System.Serwisy;
+package System.SerwisyTestowe;
 
 import System.Model.Uzytkownik;
+import System.Serwisy.LoginService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 

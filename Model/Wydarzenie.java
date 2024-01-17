@@ -12,21 +12,36 @@ public class Wydarzenie {
 	private Collection<List<Uzytkownik>> uczestnicy;
 
 	public Wydarzenie() {
-		// TODO - implement Wydarzenie.Wydarzenie
-		throw new UnsupportedOperationException();
 	}
 
 	/**
 	 * 
 	 * @param nazwa
-	 * @param adres
+	 *
 	 * @param data_wydarzenia
 	 * @param wpisowe
 	 * @param organizatorzy
 	 */
-	public Wydarzenie(int nazwa, int adres, int data_wydarzenia, int wpisowe, int organizatorzy) {
-		// TODO - implement Wydarzenie.Wydarzenie
-		throw new UnsupportedOperationException();
+	public Wydarzenie(String nazwa, Date data_wydarzenia, float wpisowe, List<Uzytkownik> organizatorzy) {
+		this.nazwa = nazwa;
+		this.data_wydarzenia = data_wydarzenia;
+		this.wpisowe = wpisowe;
+		this.organizatorzy = organizatorzy;
 	}
 
+	public String getNazwa() {
+		return nazwa;
+	}
+
+	public Date getData_wydarzenia() {
+		return data_wydarzenia;
+	}
+
+	public float getWpisowe() {
+		return wpisowe;
+	}
+
+	public List<Uzytkownik> getOrganizatorzy() {
+		return organizatorzy;
+	}
 }
