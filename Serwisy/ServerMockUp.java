@@ -19,6 +19,26 @@ public class ServerMockUp {
         events.add(new Wydarzenie("Polowanie na szczupaki", new Date(), 69, users));
         eventCount += 2;
     }
+
+    public Uzytkownik getUser(String imie){
+        for (Uzytkownik user : users) {
+
+            if (user.getImie().equals(imie)){
+                System.out.println(user.getImie());
+
+                return user;
+            }
+        }
+        return null;
+    }
+
+    public boolean deleteUser(Uzytkownik uzytkownik) {if (users.contains(uzytkownik)) {
+        users.remove(uzytkownik);
+        return true;
+    }
+    return false;
+    }
+
     public List<Uzytkownik> getUsers() {
         return users;
     }

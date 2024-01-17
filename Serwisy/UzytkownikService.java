@@ -5,6 +5,11 @@ import System.Model.*;
 public class UzytkownikService {
 
 	private Uzytkownik uzytkownik;
+	private ServerMockUp server;
+
+	public UzytkownikService(){
+		server = new ServerMockUp();
+	}
 
 	/**
 	 * 
@@ -16,12 +21,12 @@ public class UzytkownikService {
 		throw new UnsupportedOperationException();
 	}
 
-	public boolean usuniecie_uzytkownika(String nazwa_konta){
-
-
-		// TODO - Delete uzytkownik
-		return true;
-
+	public boolean usuniecie_uzytkownika(String imie){
+		Uzytkownik user = server.getUser(imie);
+		if (user != null) {
+			return server.deleteUser(user);
+		}
+		return false;
 	}
 
 	public void wyswietlenie_uzytkownika() {
