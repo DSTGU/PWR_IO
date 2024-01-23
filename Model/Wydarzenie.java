@@ -29,6 +29,10 @@ public class Wydarzenie {
 		this.organizatorzy = organizatorzy;
 	}
 
+	public Wydarzenie(String nazwa) {
+		this.nazwa = nazwa;
+	}
+
 	public String getNazwa() {
 		return nazwa;
 	}

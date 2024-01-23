@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="fitnesse-standalone">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Desktop/fitnesse/fitnesse-standalone.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
