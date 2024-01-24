@@ -1,7 +1,5 @@
 package System.Tests_Fitnesse;
 
-import System.Serwisy.LoginService;
-import System.Serwisy.UzytkownikService;
 import fit.Fixture;
 import System.Aplikacja;
 
