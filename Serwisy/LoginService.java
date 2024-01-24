@@ -17,38 +17,30 @@ public class LoginService {
 	 * @param mail
 	 */
 	private String path=System.getProperty("user.dir") + "\\Users.txt";
-
+	ServerMockUp server=new ServerMockUp();
 	public Uzytkownik zarejestrujUzytkownika(String imie, String nazwisko, String mail, String haslo) throws IOException {
 
-
+		System.out.println("dupa");
 		// NewUser(imie:string,nazwisko:string,email:string,haslo:string)
 		if (!isMailUsed(mail)) { //Pytamy serwera czy mail jest nowy. Komunikacja z serwerem ogólnie, ale nie mamy serwera
 			if (czyHasloPoprawnyFormat(haslo)) {
 				Uzytkownik uzytkownik = new Uzytkownik(imie, nazwisko, mail, haslo, 0);
-				BufferedWriter writer = new BufferedWriter(new FileWriter(path, true));
-				writer.append(uzytkownik.getEmail());//Tutaj wysłać informację
-				writer.newLine();
-				writer.append(uzytkownik.getHaslo());//hihi a bit of mischief
-				writer.newLine();
-				writer.append(uzytkownik.getImie());
-				writer.newLine();
-				writer.append(uzytkownik.getNazwisko());
-				writer.newLine();
-				writer.close();
+				server.addUsers(uzytkownik);
+				System.out.println("dupa");
 				return uzytkownik;
 			}
 		}
 		return null;
 	}
 private boolean isMailUsed(String mail) throws IOException {
-	BufferedReader reader = new BufferedReader(new FileReader(path));
-	while(reader.ready())
-	{
-		if(Objects.equals(reader.readLine(), mail)) {
-			reader.close();
+
+	for(int i=0;i<server.getUsers().size();i++) {
+		if (Objects.equals(mail, server.getUsers().get(i).getEmail())) {
+
 			return true;
 		}
 	}
+
 	return false;
 }
 	private boolean czyHasloPoprawnyFormat(String haslo) {

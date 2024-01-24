@@ -1,6 +1,7 @@
 <component name="libraryTable">
   <library name="fitnesse-standalone">
     <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../FitNesse/fitnesse-standalone.jar!/" />
       <root url="jar://$PROJECT_DIR$/../../fitnesse/fitnesse-standalone.jar!/" />
       <root url="jar://$PROJECT_DIR$/Tests_Fitnesse/fitnesse-standalone.jar!/" />
     </CLASSES>
