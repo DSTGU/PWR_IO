@@ -22,7 +22,7 @@ public class Aplikacja {
 	private JFrame frame;
 	private JFrame login_screen;
 
-	Aplikacja() {
+	public Aplikacja() {
 		uzytkownikService = new UzytkownikService();
 		wydarzenieService = new WydarzenieService();
 		skargaService = new SkargaService();

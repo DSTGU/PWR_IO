@@ -11,7 +11,7 @@ public class WydarzenieService {
 	private Wydarzenie wydarzenie;
 
 
-	ServerMockUp server = new ServerMockUp();
+	public ServerMockUp server = new ServerMockUp();
 
 	public boolean utworzenie_wydarzenia(String nazwa, Date data, Uzytkownik organizator, float wpisowe) {
 		int events = server.getEventCount();

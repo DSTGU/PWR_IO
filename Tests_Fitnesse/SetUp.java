@@ -1,11 +1,12 @@
 package System.Tests_Fitnesse;
 
 import fit.Fixture;
+import System.Aplikacja;
 
 public class SetUp extends Fixture {
-    static WydarzenieApplication wydarzenieApplication;
+    static Aplikacja Application;
 
     public SetUp() {
-        wydarzenieApplication = new WydarzenieApplication();
+        Application = new Aplikacja();
     }
 }

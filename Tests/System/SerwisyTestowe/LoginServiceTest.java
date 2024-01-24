@@ -23,9 +23,6 @@ class LoginServiceTest {
         writer.close();
     }
 
-
-
-
     @Test
     void CzyHasloNiepoprawne() throws IOException {
         assertNull(testLoginService.zarejestrujUzytkownika("Imie", "Nazwisko", "Email", "haslo"));
@@ -133,9 +130,8 @@ class LoginServiceTest {
         assertEquals("Nazwisko",testUser.getNazwisko());
         assertEquals("Email", testUser.getEmail());
         assertEquals("Poprawnehaslo!11",testUser.getHaslo());
-
-
     }
+
     @Test
     void PodczasLogowaniaPlikNieIstnieje()throws Exception{
         testLoginService.setTestPath("thisPathDoesNotExist");
@@ -153,6 +149,7 @@ class LoginServiceTest {
                 "Expected zalogujUzytkownitka() to throw, but it didn't"
         );
     }
+
     @Test
     void RejestracjaILogowanieZarejestrowanegoUzytkownika() throws Exception {
         testLoginService.zarejestrujUzytkownika("Imie","Nazwisko","Email", "PoprawneHaslo1!!");
