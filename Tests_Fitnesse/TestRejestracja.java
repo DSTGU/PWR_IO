@@ -3,7 +3,6 @@ package System.Tests_Fitnesse;
 import System.Model.Uzytkownik;
 import fit.ColumnFixture;
 
-import javax.xml.crypto.Data;
 import java.io.IOException;
 
 public class  TestRejestracja extends ColumnFixture {
@@ -21,9 +20,9 @@ public class  TestRejestracja extends ColumnFixture {
     public boolean zarejestruj_uzytkownika() throws IOException {
         result=null;
         actuall=new Uzytkownik(Imie,Nazwisko,Mail,Haslo,0);
-        temp=SetUp.loginService.zarejestrujUzytkownika(Imie,Nazwisko,Mail,Haslo);
+        temp=SetUp.Application.loginService.zarejestrujUzytkownika(Imie,Nazwisko,Mail,Haslo);
         result="";
-        data=SetUp.data.dataForRegistry[number];
+        data= SetUp.data.dataForRegistry[number];
         //data="Adam,Kowalski,email@email.com,HasloPoprawne12!";
         if(temp!=null) {
             result += temp.getImie();

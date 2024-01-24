@@ -11,8 +11,8 @@ public class main {
 		//aplikacja.loginService.zarejestrujUzytkownika("Janusz" ,"Kowalski","janusz@gmail.com", "Janusz123");
 		//aplikacja.wydarzenieService.utworzenie_wydarzenia("Dożmynki 2014", new Date(), aplikacja.zalogowanyUzytkownik);
 		//aplikacja.uzytkownikService.usuniecie_uzytkownika("Janusz");
-		Data data = null;
-		data.setData();
+		//Data data = null;
+		//data.setData();
 
 	}
 

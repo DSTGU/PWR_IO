@@ -3,7 +3,6 @@ package System.Tests_Fitnesse;
 import fit.ColumnFixture;
 
 import java.util.Date;
-import java.util.IllegalFormatCodePointException;
 
 
 public class TestDodawanieWydarzenia extends ColumnFixture {
