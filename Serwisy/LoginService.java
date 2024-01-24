@@ -2,8 +2,8 @@ package System.Serwisy;
 
 import System.Model.*;
 
-import javax.swing.*;
 import java.io.*;
+import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -67,25 +67,17 @@ private boolean isMailUsed(String mail) throws IOException {
 	}
 
 	public Uzytkownik zalogujUzytkownika(String email,String password) throws Exception {
-
-			BufferedReader reader = new BufferedReader(new FileReader(path));
-			String imie="";
-			String nazwisko="";
-			if(isDataCorrect(email,password)) {
-				while (reader.ready()) {
-					if (Objects.equals(reader.readLine(), email)) {
-						reader.readLine();
-						imie = reader.readLine();
-						nazwisko = reader.readLine();
-					}
+		List<Uzytkownik> list = server.getUsers();
+		for (Uzytkownik u : list){
+			if (u.getEmail().equals(email)){
+				if (u.getHaslo().equals(password)){
+					return u;
 				}
-				if (!Objects.equals(imie, ""))
-					return new Uzytkownik(imie, nazwisko, email, password, 0);
-				else {
-					throw new Exception("Cos poszlo nie tak");
-				}
+				return null;
 			}
-			throw new Exception("Niepoprawny email lub haslo");
+
+		}
+		return null;
 	}
 
 	public boolean isDataCorrect(String email, String password) throws IOException {
